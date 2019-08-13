@@ -39,7 +39,11 @@ public interface RestSign {
 
     /**
      * 验证签名是否通过
-     * @return
+     * @return 是否通过
+     * @throws NoSuchAlgorithmException NoSuchAlgorithmException
+     * @throws InvalidKeySpecException InvalidKeySpecException
+     * @throws InvalidKeyException InvalidKeyException
+     * @throws SignatureException SignatureException
      */
     public boolean validateSign() throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException;
 }
