@@ -1,8 +1,8 @@
-package com.gvt.apollo.security.sign.url;
+package com.gvt.apollo.security.sign;
 
 import com.alibaba.fastjson.JSONObject;
 
-import java.security.PrivateKey;
+import java.security.Key;
 import java.util.Map;
 
 /**
@@ -17,11 +17,11 @@ import java.util.Map;
  * @since JDK8
  * Creation time：2019/8/8 12:15
  */
-public class JsonTranslateUrlSign extends MapTranslateUrlSign {
+public class JsonToUrlSign extends MapToUrlSign {
     private String jsonData;
-    private PrivateKey privateKey;
+    private Key privateKey;
 
-    public JsonTranslateUrlSign(PrivateKey privateKey,String jsonData) {
+    public JsonToUrlSign(Key privateKey, String jsonData) {
         super(privateKey,JSONObject.parseObject(jsonData, Map.class));
     }
 }

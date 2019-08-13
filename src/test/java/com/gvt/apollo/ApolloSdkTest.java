@@ -49,6 +49,7 @@ public class ApolloSdkTest {
      * 个人私钥
      */
    private String personPriKey="MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKchmkLjZrhHlN1W04X8Xdt9mgcyZ/oJBO4R+ZhWB4KJUa/x8jWj6AsnjHYzYmwZ5JJT0ZAscP4rNRHz/gCaGMOmO7yGIHGQ9r9SktY5sn4Mr7sInB/xMA/IJJ9i5nrJvxU3K9rDmNx6R7hIXZDbBj3jnsCvtGKkRynBaVmTdU8jAgMBAAECgYBu+J3PyeP7efP7H1qlfVLomTY7jxmA6JowZRkAMCceYoUtuQ1k1mcNeP4HwciZFHwzOJpOC2QfL5s2R3ag+bB0quD+Ul+OOLz39WZfq6Aoh/0/RKTZaIXf1CluVAVjsrh3aBVqlpr88MaJ2I23wQ1MOqNFUow+5qSwuhaaiGljcQJBAOz+3rgBSMi7kirest9IrfrpF3PfppEQOmvkb/GdCmCiKcpM85QPSgibbhVftcQsvb0WtCHDELvMZzR2zkr00IkCQQC0iIhjJr0xDEdWmelAnIMEvw9k3wfduzI/TgBtt7BPuIlpKNlKM6cwYV2l30GhveJNqBIS5VDhFkOOEDJfdr9LAkEA0wU1Zn2uQx3Qzl8wwePDFjDJ8yDm/S+H9V2X13jPLq/1qe3OzLy4XOWYpWttO1njMCSxC4bWtYERPAO1N8S4kQJACfHDYYLOxRbiDxknShHU/bvwgyPt8P7Qw7/uMhz+L0YA+7PuVDIIMZgLaomjud8VyiVJ6ZSMIfnx+q9VtwB5hQJAfZ8JgcUoc7iXwpN/IdzUfyd5ZE/A0XlZVWroJENW2XDL0UUGvW+G+UVeAjJo7KMdRigieKLIhzpwUh8aDmcUag==";
+   private String personPubKey="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnIZpC42a4R5TdVtOF/F3bfZoHMmf6CQTuEfmYVgeCiVGv8fI1o+gLJ4x2M2JsGeSSU9GQLHD+KzUR8/4AmhjDpju8hiBxkPa/UpLWObJ+DK+7CJwf8TAPyCSfYuZ6yb8VNyvaw5jceke4SF2Q2wY9457Ar7RipEcpwWlZk3VPIwIDAQAB";
 
     @Test
     public void wrapSign() throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, SignatureException, InvalidKeyException {
@@ -71,5 +72,10 @@ public class ApolloSdkTest {
         String json="{\"appid\":\"rr333sss7788\",\"member\":{\"memberId\":\"11\",\"memberName\":\"张三\"},\"shopLocation\":\"深圳南山新区西丽街道\",\"shopName\":\"apos门店\"}";
         System.out.println(apolloSdk.wrapSign(SecurityUtils.getPriKey(personPriKey), json));
     }
-
+    @Test
+    public void validateSign() throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, SignatureException, InvalidKeyException {
+        ApolloSdk apolloSdk=new ApolloSdk();
+        String json="{\"shopLocation\":\"深圳南山新区西丽街道\",\"appid\":\"rr333sss7788\",\"member\":{\"memberName\":\"张三\",\"memberId\":\"11\"},\"sign\":\"QEQLxPTNGLVgoQL/WD5qvsZPLNUisDR1vqJ/MsJ02eXhhSg9PAztk2Ju7yUrBmnhoWCDt6V3jy2KwifwqfjP5glBf76/5A4tR3CYzRp1Q4M2u0AfSiuI5mWptwqNBRUsg/5IazCeOlKEQn2emYiluaxYM2WF7BbIv1zmvjM5Zw4=\",\"shopName\":\"apos门店\"}";
+        System.out.println(apolloSdk.validateSign(SecurityUtils.getPubKey(personPubKey), json));
     }
+}

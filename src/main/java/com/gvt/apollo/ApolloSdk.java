@@ -2,11 +2,9 @@ package com.gvt.apollo;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gvt.apollo.bean.BizBean;
-import com.gvt.apollo.security.sign.url.BeanTranslateUrlSign;
-import com.gvt.apollo.security.sign.url.JsonTranslateUrlSign;
-import com.gvt.apollo.security.sign.url.MapTranslateUrlSign;
-import com.gvt.apollo.utils.SecurityUtils;
-import lombok.extern.slf4j.Slf4j;
+import com.gvt.apollo.security.sign.BeanToUrlSign;
+import com.gvt.apollo.security.sign.JsonToUrlSign;
+import com.gvt.apollo.security.sign.MapToUrlSign;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -37,11 +35,11 @@ public class ApolloSdk {
      * @throws UnsupportedEncodingException UnsupportedEncodingException
      */
     public String wrapSign(PrivateKey personPriKey, /**PublicKey platformPubKey,**/String jsonData) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException {
-        JsonTranslateUrlSign jsonTranslateUrlSign=new JsonTranslateUrlSign(personPriKey,jsonData);
+        JsonToUrlSign jsonTranslateUrlSign=new JsonToUrlSign(personPriKey,jsonData);
         byte[] sign = jsonTranslateUrlSign.sign();
         JSONObject jsonObject=JSONObject.parseObject(jsonData);
 //        jsonObject.put(MapTranslateUrlSign.SIGN_KEY,new String(SecurityUtils.encrypt(platformPubKey,sign),charset));
-        jsonObject.put(MapTranslateUrlSign.SIGN_KEY,Base64.getEncoder().encodeToString(sign));
+        jsonObject.put(MapToUrlSign.SIGN_KEY,Base64.getEncoder().encodeToString(sign));
         return jsonObject.toJSONString();
     }
 
@@ -61,9 +59,24 @@ public class ApolloSdk {
      * @throws UnsupportedEncodingException UnsupportedEncodingException
      */
     public <T extends BizBean> T wrapSign(PrivateKey personPriKey/**, PublicKey platformPubKey**/, T object) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException {
-        BeanTranslateUrlSign<T> jsonTranslateUrlSign=new BeanTranslateUrlSign<T>(personPriKey,object);
+        BeanToUrlSign<T> jsonTranslateUrlSign=new BeanToUrlSign<T>(personPriKey,object);
         byte[] sign = jsonTranslateUrlSign.sign();
         object.setSign(Base64.getEncoder().encodeToString(sign));
         return object;
+    }
+
+    /**
+     * 验证json串是否合法
+     * @param publicKey 公钥
+     * @param json json字符串
+     * @return 是否验证通过
+     * @throws InvalidKeySpecException
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeyException
+     * @throws SignatureException
+     */
+    public boolean validateSign(PublicKey publicKey,String json) throws InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+        JsonToUrlSign jsonTranslateUrlSign=new JsonToUrlSign(publicKey,json);
+        return jsonTranslateUrlSign.validateSign();
     }
 }

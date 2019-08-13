@@ -1,9 +1,6 @@
-package com.gvt.apollo.security;
+package com.gvt.apollo.security.sign;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.SignatureException;
+import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 
 /**
@@ -12,18 +9,18 @@ import java.security.spec.InvalidKeySpecException;
  * @since JDK8
  * Creation time：2019/8/8 12:15
  */
-public interface Sign {
+public interface RestSign {
     /**
      * 签名数据
      * @return 被签名数据
      */
-    public Object signData();
+    public Object data();
 
     /**
-     * 私钥
+     * 公钥或者私钥
      * @return 私钥
      */
-    public PrivateKey getPrivateKey();
+    public Key getKey();
     /**
      * 是否允许签名
      * @return 是否允许签名
@@ -39,4 +36,10 @@ public interface Sign {
      * @throws SignatureException 签名异常
      */
     public byte[] sign() throws InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException;
+
+    /**
+     * 验证签名是否通过
+     * @return
+     */
+    public boolean validateSign() throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException;
 }
