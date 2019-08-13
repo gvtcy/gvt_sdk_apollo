@@ -1,8 +1,10 @@
 package com.gvt.apollo;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gvt.apollo.bean.BizBean;
 import com.gvt.apollo.utils.SecurityUtils;
 import lombok.Data;
+import lombok.ToString;
 import org.junit.Test;
 
 import javax.crypto.BadPaddingException;
@@ -25,6 +27,7 @@ import static org.junit.Assert.*;
  */
 public class ApolloSdkTest {
     @Data
+    @ToString
     public class Shop implements BizBean {
         private String appid;
         private String shopName;
@@ -37,6 +40,7 @@ public class ApolloSdkTest {
         }
     }
     @Data
+    @ToString
     public class Member{
         private String memberId;
         private String memberName;
@@ -57,11 +61,15 @@ public class ApolloSdkTest {
         member.setMemberId("11");
         member.setMemberName("张三");
         shop.setMember(member);
+        System.out.println(JSONObject.toJSONString(shop));
         Shop realShop = apolloSdk.wrapSign(SecurityUtils.getPriKey(personPriKey), shop);
-        System.out.println(realShop.getSign());
+        System.out.println(realShop.getSign().length());
+    }
+    @Test
+    public void wrapJsonSign() throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, SignatureException, InvalidKeyException {
+        ApolloSdk apolloSdk=new ApolloSdk();
+        String json="{\"appid\":\"rr333sss7788\",\"member\":{\"memberId\":\"11\",\"memberName\":\"张三\"},\"shopLocation\":\"深圳南山新区西丽街道\",\"shopName\":\"apos门店\"}";
+        System.out.println(apolloSdk.wrapSign(SecurityUtils.getPriKey(personPriKey), json));
     }
 
-    @Test
-    public void wrapSign1() {
     }
-}

@@ -18,6 +18,7 @@ import java.util.TreeMap;
  * @since JDK8
  * Creation time：2019/8/8 14:04
  */
+@Slf4j
 public class MapTranslateUrlSign extends AbstractUrlParamSign {
     private Map<String,Object> jsonMap;
     private PrivateKey privateKey;
@@ -44,13 +45,15 @@ public class MapTranslateUrlSign extends AbstractUrlParamSign {
             if(!SIGN_KEY.equals(entry.getKey())) {
                 Object value = entry.getValue();
                 if (value instanceof Map) {
-                    paramUrl.append(urlMap(entry.getKey(),(Map) value));
+                    Map<String, Object> ctreeMap = new TreeMap<String, Object>();
+                    ctreeMap.putAll((Map) value);
+                    paramUrl.append(urlMap(entry.getKey(),ctreeMap));
                 } else {
                     paramUrl.append((parentKey==null?entry.getKey():(parentKey+"_"+entry.getKey())) + "=" + entry.getValue() + "&");
                 }
             }
         });
-        System.out.println(paramUrl.toString());
+        log.debug(paramUrl.toString());
         return paramUrl.toString();
     }
     @Override
