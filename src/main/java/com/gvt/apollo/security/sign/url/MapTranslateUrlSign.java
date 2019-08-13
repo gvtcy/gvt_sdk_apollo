@@ -13,8 +13,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * 将集合M内非空参数值的参数按照参数名ASCII码从小到大排序（字典序）格式（即key1=value1&key2=value2…）拼接成字符串stringA。
- * @author jiaozi<liaomin @ gvt861.com>
+ * 将集合M内非空参数值的参数按照参数名ASCII码从小到大排序（字典序）格式（即key1=value1&amp;key2=value2…）拼接成字符串stringA。
+ * @author jiaozi《liaomin艾特gvt861.com》
  * @since JDK8
  * Creation time：2019/8/8 14:04
  */

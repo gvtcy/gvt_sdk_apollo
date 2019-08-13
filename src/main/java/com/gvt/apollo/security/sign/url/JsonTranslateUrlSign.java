@@ -13,7 +13,7 @@ import java.util.Map;
  *   mch_id:11,
  *   hash:34546456
  * }
- * @author jiaozi<liaomin @ gvt861.com>
+ * @author jiaozi《liaomin艾特gvt861.com》
  * @since JDK8
  * Creation time：2019/8/8 12:15
  */

@@ -6,7 +6,7 @@ import java.security.PrivateKey;
 
 /**
  * bean签名
- * @author jiaozi<liaomin @ gvt861.com>
+ * @author 《liaomin艾特gvt861.com》
  * @since JDK8
  * Creation time：2019/8/8 14:08
  */

@@ -10,15 +10,15 @@ import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 
 /**
- * url签名 比如a=1&b=2
- * @author jiaozi<liaomin @ gvt861.com>
+ * url签名 比如a=1&amp;b=2
+ * @author jiaozi《liaomin艾特gvt861.com》
  * @since JDK8
  * Creation time：2019/8/8 15:43
  */
 public abstract class AbstractUrlParamSign implements Sign {
     /**
      * 获取url
-     * @return
+     * @return 拼接url
      */
     public abstract String url();
 

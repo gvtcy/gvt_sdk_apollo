@@ -19,7 +19,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * @author jiaozi<liaomin @ gvt861.com>
+ * @author jiaozi《liaomin艾特gvt861.com》
  * @since JDK8
  * Creation time：2019/8/12 20:39
  */
