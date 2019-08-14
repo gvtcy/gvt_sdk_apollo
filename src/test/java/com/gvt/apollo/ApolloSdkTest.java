@@ -17,6 +17,8 @@ import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -75,7 +77,11 @@ public class ApolloSdkTest {
     @Test
     public void validateSign() throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, SignatureException, InvalidKeyException {
         ApolloSdk apolloSdk=new ApolloSdk();
-        String json="{\"shopLocation\":\"深圳南山新区西丽街道\",\"appid\":\"rr333sss7788\",\"member\":{\"memberName\":\"张三\",\"memberId\":\"11\"},\"sign\":\"QEQLxPTNGLVgoQL/WD5qvsZPLNUisDR1vqJ/MsJ02eXhhSg9PAztk2Ju7yUrBmnhoWCDt6V3jy2KwifwqfjP5glBf76/5A4tR3CYzRp1Q4M2u0AfSiuI5mWptwqNBRUsg/5IazCeOlKEQn2emYiluaxYM2WF7BbIv1zmvjM5Zw4=\",\"shopName\":\"apos门店\"}";
+        String json="{\"shopLocation\":\"深圳南山新区西丽街道\",\"appid\":\"rr333sss7788\",\"member\":{\"memberName\":\"张三\",\"memberId\":\"11\"},\"sign\":\"PB0y894H1GYbUOdQdLHjiZ73u/dlgqg+2v5s0Wp8TJqX+p7s+Z3YRU/DdCJJEvYIkjTwODnfjNQ60EGobRBL3pnLKNoKSrdDQFRPpbFsQSUam/PlEYTXeeFTlZhxF8o7j5wagfX65bt7GYuxLdsmwwW2NbpLargzmubEe0cLB00=\",\"shopName\":\"apos门店\"}";
         System.out.println(apolloSdk.validateSign(SecurityUtils.getPubKey(personPubKey), json));
+    }
+    @Test
+    public void appid(){
+        System.out.println(UUID.randomUUID().toString().replaceAll("-", "").toLowerCase().length());;
     }
 }

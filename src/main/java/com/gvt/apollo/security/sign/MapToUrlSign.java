@@ -22,12 +22,13 @@ public class MapToUrlSign extends AbstractUrlSign {
     private Key key;
     public static final String SIGN_KEY="sign";
     public static final String APPID_KEY="appid";
-    private UrlParser urlParser=new MapUrlParser();
+    private UrlParser urlParser;
     public MapToUrlSign(Key key, Map<String,Object> jsonMap) {
         Map<String, Object> treeMap = new TreeMap<String, Object>();
         treeMap.putAll(jsonMap);
         this.jsonMap = treeMap;
         this.key = key;
+        urlParser=new MapUrlParser(this.jsonMap);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class MapToUrlSign extends AbstractUrlSign {
     @Override
     public String url() {
         StringBuffer paramUrl=new StringBuffer();
-        return urlParser.parse(jsonMap);
+        return urlParser.parse();
     }
 
     @Override

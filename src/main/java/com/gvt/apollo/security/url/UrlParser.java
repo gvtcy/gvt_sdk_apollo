@@ -5,6 +5,6 @@ package com.gvt.apollo.security.url;
  * @since JDK8
  * Creation time：2019/8/13 13:12
  */
-public interface UrlParser<T> {
-    public String parse(T obj);
+public interface UrlParser {
+    public String parse();
 }
