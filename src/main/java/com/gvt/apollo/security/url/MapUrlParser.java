@@ -2,8 +2,10 @@ package com.gvt.apollo.security.url;
 
 import com.gvt.apollo.security.sign.MapToUrlSign;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -30,7 +32,7 @@ public class MapUrlParser implements UrlParser {
             return returnUrl;
         }
         log.debug(returnUrl.toString());
-        System.out.println(returnUrl);
+        System.out.println("----"+returnUrl);
         return returnUrl;
     }
     public String urlMap(String parentKey,Map<String,Object> map){
@@ -42,8 +44,19 @@ public class MapUrlParser implements UrlParser {
                     Map<String, Object> ctreeMap = new TreeMap<String, Object>();
                     ctreeMap.putAll((Map) value);
                     paramUrl.append(urlMap(entry.getKey(),ctreeMap));
+                }else if (value instanceof List) {
+                    List mapList=(List)value;
+                    for (int i = 0; i < mapList.size(); i++) {
+                        Map cmap = (Map) mapList.get(i);
+                        Map<String, Object> ctreeMap = new TreeMap<String, Object>();
+                        ctreeMap.putAll(cmap);
+                        paramUrl.append(urlMap(entry.getKey()+"["+i+"]",ctreeMap));
+                    }
                 } else {
-                    paramUrl.append((parentKey==null?entry.getKey():(parentKey+"_"+entry.getKey())) + "=" + entry.getValue() + "&");
+                    if(entry.getValue()!=null&&StringUtils.isNotEmpty(entry.getValue().toString()) && !"null".equalsIgnoreCase(entry.getValue().toString())){
+                        paramUrl.append((parentKey==null?entry.getKey():(parentKey+"_"+entry.getKey())) + "=" + entry.getValue() + "&");
+
+                    }
                 }
             }
         });

@@ -1,5 +1,7 @@
 package com.gvt.apollo.security.url;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -22,8 +24,15 @@ public class StringUrlParser extends MapUrlParser {
         System.out.println(str);
         String[] paramsArr = str.split("&");
         for (String param : paramsArr) {
-            String[] temp = param.split("=");
-            map.put(temp[0], temp[1]);
+            int spCharIndex = param.indexOf("=");
+            String key=param.substring(0,spCharIndex);
+            String value=null;
+            if(spCharIndex<param.length()){
+               value=param.substring(spCharIndex+1);
+            }
+            if(StringUtils.isNotEmpty(value) && !"null".equalsIgnoreCase(value)){
+                map.put(key,value);
+            }
         }
         return map;
     }

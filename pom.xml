@@ -7,7 +7,7 @@
     <groupId>io.github.gvtcy</groupId>
     <artifactId>gvt_sdk_apollo</artifactId>
     <!--<version>1.0-SNAPSHOT</version>-->
-    <version>1.0-RELEASE</version>
+    <version>1.2-SNAPSHOT</version>
     <name>gvt_sdk_apollo</name>
     <description>第三方接口api</description>
     <url>https://github.com/gvtcy/gvt_sdk_apollo.git</url>
@@ -130,6 +130,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
         </dependency>
 
     </dependencies>
